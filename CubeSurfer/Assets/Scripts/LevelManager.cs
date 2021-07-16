@@ -9,21 +9,29 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     public List<GameObject> levels;
     private int scor;
+    public CharacterController _characterController;
     
     [Header("UI")]
     [SerializeField] private GameObject endGame;
 
     [SerializeField] private GameObject gameOver;
-    private Text scoreText;
+    
     public int activeLevel;
+    [Header("Start Cube")]
+    [SerializeField] private GameObject cube;
+
+    [Header("End Game or Game Over")]
+    public bool isTrue;
     private void Start()
     {
+        levels.Add(cube);
         instance = this;
         activeLevel = 0;
     }
 
     private void Update()
     {
+       // LevelComplate();
         Debug.Log(levels.Count);
     }
 
@@ -33,32 +41,29 @@ public class LevelManager : MonoBehaviour
         return scor;
     }
 
-    private void LevelComplate()
-    {
+    public void LevelComplate()
+    { 
+        if (levels.Count  <= 0 && isTrue)
+        {
+            _characterController.enabled = false;
+            endGame.SetActive(true);
+        }
         
-        CharacterController _characterController = GetComponent<CharacterController>(); 
-        scoreText.text="Scor: " + scor;
-        _characterController.swerveSpeed = 0;
-        _characterController.moveSpeed = 0;
-        endGame.SetActive(true);
-        
+        else if(levels.Count  <=0 && !isTrue)
+        {
+            _characterController.enabled = false;
+            gameOver.SetActive(true);
+        }
     }
+    
 
-    private void GameOver()
-    {
-        CharacterController _characterController = GetComponent<CharacterController>();
-        gameOver.SetActive(true);
-        _characterController.swerveSpeed = 0;       
-        _characterController.moveSpeed = 0;
-    }
-
-    void NextLevelButton()
+    public void NextLevelButton()
     {
         GameManager.Manager.LevelCompleted(activeLevel);
         Destroy(this.gameObject);
     }
 
-    void RetryButton()
+    public void RetryButton()
     {
         GameManager.Manager.LevelRetry(activeLevel);
     }

@@ -12,7 +12,8 @@ public class Obstacle : MonoBehaviour
             cube.transform.parent = null;
             isTrigger = true;
             LevelManager.instance.levels.Remove(cube.gameObject);
-            Camera.main.transform.Translate(0,-0.5f,0.5f);
+            LevelManager.instance.LevelComplate();
+            Camera.main.transform.Translate(0,-0.2f,0.2f);
             Camera.main.transform.Rotate(-1,0,0);
         }
     }

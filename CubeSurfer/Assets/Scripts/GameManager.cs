@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     
     public void LevelCompleted(int counter)
     {
+        Destroy(levels[counter]);
         Instantiate( levels[counter+1] );
     }
 
