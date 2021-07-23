@@ -34,7 +34,7 @@ public class Collect : MonoBehaviour
         ins.transform.parent = cubes.transform;
         ins.gameObject.name = (LevelManager.instance.levels.Count + 1).ToString();
         LevelManager.instance.levels.Add(ins);
-        Camera.main.transform.Translate(0,0.5f,-0.5f);
-        Camera.main.transform.Rotate(1,0,0);
+//        Camera.main.transform.Translate(0,0.5f,-0.5f);
+     //   Camera.main.transform.Rotate(1,0,0);
     }
 }

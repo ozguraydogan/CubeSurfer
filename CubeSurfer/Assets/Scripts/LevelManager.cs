@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public bool isTrue;
     private void Start()
     {
+        _characterController.enabled = true;
         levels.Add(cube);
         instance = this;
         activeLevel = 0;
@@ -32,7 +33,7 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
        // LevelComplate();
-        Debug.Log(levels.Count);
+       // Debug.Log(levels.Count);
     }
 
     private int Scor()

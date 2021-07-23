@@ -3,13 +3,14 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     bool isTrigger;
+    [SerializeField]private GameObject levelParent;
     
     public void OnCollisionEnter(Collision other)
     {
         Cube cube = other.gameObject.GetComponent<Cube>();
         if (cube && !isTrigger)
         {
-            cube.transform.parent = null;
+            cube.transform.parent = levelParent.transform;
             isTrigger = true;
             LevelManager.instance.levels.Remove(cube.gameObject);
             LevelManager.instance.LevelComplate();

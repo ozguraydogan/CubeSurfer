@@ -12,6 +12,18 @@ public class CharacterController : MonoBehaviour
     [Header("Move")]
     public float moveSpeed;
 
+    private bool isTrue;
+
+    private Vector3 clamp;
+
+    public Transform model;
+    public Transform cubeRoot;
+
+    private void Start()
+    {
+        Camera.main.transform.parent = cubeRoot.transform;
+    }
+
     private void Update()
     {
         #region Swap
@@ -36,9 +48,16 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float swerveAmount = Time.deltaTime * swerveSpeed * move;
-        swerveAmount = Mathf.Clamp(swerveAmount, -amount, amount);
         
-        transform.Translate(swerveAmount, 0, 1 * Time.deltaTime * moveSpeed);
+        float swerveAmount = Time.deltaTime * swerveSpeed * move;
+        //swerveAmount = Mathf.Clamp(swerveAmount, -amount, amount);
+
+        clamp = cubeRoot.localPosition;
+        clamp.x += swerveAmount;
+        clamp.x = Mathf.Clamp(clamp.x, -amount, amount);
+        cubeRoot.localPosition = clamp;
+        transform.position += model.forward * Time.deltaTime * moveSpeed;
+        
+       // transform.Translate(model.forward * Time.deltaTime * moveSpeed);
     }
 }
